@@ -10,6 +10,7 @@ type Params struct {
 	Name              string `json:"name" form:"name"`
 	ParentUUID        string `json:"parentUuid" form:"parentUuid"`
 	Depth             uint8  `json:"depth" form:"depth"`
+	Architecture      string `json:"architecture" form:"architecture"`
 	WithHosts         bool   `json:"withHosts" form:"withHosts"`
 	WithVersions      bool   `json:"withVersions" form:"withVersions"`
 	WithNesting       bool   `json:"withNesting" form:"withNesting"`
