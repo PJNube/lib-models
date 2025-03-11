@@ -1,6 +1,6 @@
 package dtos
 
-import "github.com/pjnube/lib-models/models"
+import "github.com/PJNube/lib-models/models"
 
 type FoldersHosts struct {
 	Folders []models.Folder `json:"folders,omitempty"`

@@ -1,6 +1,6 @@
 package dtos
 
-import "github.com/pjnube/lib-models/datatypes"
+import "github.com/PJNube/lib-models/datatypes"
 
 type User struct {
 	UUID     string               `json:"uuid"`

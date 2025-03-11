@@ -1,7 +1,7 @@
 package models
 
 import (
-	"github.com/pjnube/lib-models/utils/nuuid"
+	"github.com/PJNube/lib-models/utils/nuuid"
 	"gorm.io/gorm"
 )
 

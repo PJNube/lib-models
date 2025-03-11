@@ -2,7 +2,7 @@ package api
 
 import (
 	"errors"
-	"github.com/pjnube/lib-models/dtos"
+	"github.com/PJNube/lib-models/dtos"
 )
 
 func BuildGetAPIResponse(data any, err error) *dtos.APIResponse {
