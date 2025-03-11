@@ -1,4 +1,4 @@
-package models
+package dtos
 
 // Example 1:
 // {
