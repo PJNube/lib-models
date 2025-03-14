@@ -14,7 +14,7 @@ type User struct {
 	IsSuperuser bool                 `json:"isSuperuser" gorm:"default:false"`
 
 	// Extra fields
-	Role string `gorm:"-" json:"role"`
+	Roles []string `gorm:"-" json:"roles"`
 }
 
 func (r *User) BeforeCreate(tx *gorm.DB) (err error) {
