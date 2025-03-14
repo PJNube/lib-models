@@ -15,6 +15,8 @@ type Params struct {
 	WithVersions      bool   `json:"withVersions" form:"withVersions"`
 	WithNesting       bool   `json:"withNesting" form:"withNesting"`
 	DownloadExtension bool   `json:"downloadExtension" form:"downloadExtension"`
+	ForceUpload       bool   `json:"forceUpload" form:"forceUpload"`
+	Force             bool   `json:"force" form:"force"`
 }
 
 func ValidateParamsUUIDRequired(params *Params) error {
