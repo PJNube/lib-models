@@ -17,6 +17,9 @@ type Params struct {
 	DownloadExtension bool   `json:"downloadExtension" form:"downloadExtension"`
 	ForceUpload       bool   `json:"forceUpload" form:"forceUpload"`
 	Force             bool   `json:"force" form:"force"`
+	WithDashboard     bool   `json:"withDashboard" form:"withDashboard"`
+	WithData          bool   `json:"withData" form:"withData"`
+	UUIDs             string `json:"uuids" form:"uuids"`
 }
 
 func ValidateParamsUUIDRequired(params *Params) error {
@@ -29,6 +32,10 @@ func ValidateParamsNameRequired(params *Params) error {
 
 func ValidateParamsIdRequired(params *Params) error {
 	return validateParams(params, validateIdRequired)
+}
+
+func ValidateParamsUUIDsRequired(params *Params) error {
+	return validateParams(params, validateUuidsRequired)
 }
 
 func validateIdRequired(params *Params) error {
@@ -48,6 +55,13 @@ func validateUuidRequired(request *Params) error {
 func validateNameRequired(request *Params) error {
 	if request.Name == "" {
 		return errors.New("name cannot be empty")
+	}
+	return nil
+}
+
+func validateUuidsRequired(request *Params) error {
+	if request.UUIDs == "" {
+		return errors.New("uuids cannot be empty")
 	}
 	return nil
 }
