@@ -4,73 +4,32 @@ import (
 	"errors"
 )
 
-type Params struct {
-	UUID              string `json:"uuid" form:"uuid"`
-	ID                string `json:"id" form:"id"`
-	Name              string `json:"name" form:"name"`
-	ParentUUID        string `json:"parentUuid" form:"parentUuid"`
-	Depth             uint8  `json:"depth" form:"depth"`
-	Architecture      string `json:"architecture" form:"architecture"`
-	WithHosts         bool   `json:"withHosts" form:"withHosts"`
-	WithVersions      bool   `json:"withVersions" form:"withVersions"`
-	WithNesting       bool   `json:"withNesting" form:"withNesting"`
-	DownloadExtension bool   `json:"downloadExtension" form:"downloadExtension"`
-	ForceUpload       bool   `json:"forceUpload" form:"forceUpload"`
-	Force             bool   `json:"force" form:"force"`
-	WithDashboard     bool   `json:"withDashboard" form:"withDashboard"`
-	WithData          bool   `json:"withData" form:"withData"`
-	UUIDs             string `json:"uuids" form:"uuids"`
-}
+type Params map[string][]string
 
-func ValidateParamsUUIDRequired(params *Params) error {
-	return validateParams(params, validateUuidRequired)
-}
-
-func ValidateParamsNameRequired(params *Params) error {
-	return validateParams(params, validateNameRequired)
-}
-
-func ValidateParamsIdRequired(params *Params) error {
-	return validateParams(params, validateIdRequired)
-}
-
-func ValidateParamsUUIDsRequired(params *Params) error {
-	return validateParams(params, validateUuidsRequired)
-}
-
-func validateIdRequired(params *Params) error {
-	if params.ID == "" {
-		return errors.New("id cannot be empty")
+func (p Params) Get(key string) string {
+	vs := p[key]
+	if len(vs) == 0 {
+		return ""
 	}
-	return nil
+	return vs[0]
 }
 
-func validateUuidRequired(request *Params) error {
-	if request.UUID == "" {
-		return errors.New("uuid cannot be empty")
-	}
-	return nil
+func (p Params) Set(key, value string) {
+	p[key] = []string{value}
 }
 
-func validateNameRequired(request *Params) error {
-	if request.Name == "" {
-		return errors.New("name cannot be empty")
-	}
-	return nil
+func (p Params) Del(key string) {
+	delete(p, key)
 }
 
-func validateUuidsRequired(request *Params) error {
-	if request.UUIDs == "" {
-		return errors.New("uuids cannot be empty")
-	}
-	return nil
+func (p Params) Has(key string) bool {
+	_, ok := p[key]
+	return ok
 }
 
-func validateParams(params *Params, validators ...func(params *Params) error) error {
-	for _, validate := range validators {
-		if err := validate(params); err != nil {
-			return err
-		}
+func (p Params) Validate(key string) error {
+	if !p.Has(key) {
+		return errors.New(key + " is required")
 	}
 	return nil
 }

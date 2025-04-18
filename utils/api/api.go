@@ -3,6 +3,7 @@ package api
 import (
 	"errors"
 	"github.com/PJNube/lib-models/dtos"
+	"strings"
 )
 
 func BuildGetAPIResponse(data any, err error) *dtos.APIResponse {
@@ -72,4 +73,31 @@ func ParseBody[T any](body any) (*T, error) {
 		return nil, errors.New("invalid body")
 	}
 	return entity, nil
+}
+
+func ResolveRouteParams(pattern, routes string) (map[string][]string, bool) {
+	pTokens := strings.Split(pattern, ".")
+	sTokens := strings.Split(routes, ".")
+
+	if len(pTokens) != len(sTokens) {
+		return nil, false
+	}
+	result := make(map[string][]string)
+
+	for i := 0; i < len(pTokens); i++ {
+		switch pTokens[i] {
+		case "*":
+			if i > 0 {
+				key := pTokens[i-1]
+				result[key] = []string{sTokens[i]}
+			} else {
+				result["*"] = []string{sTokens[i]}
+			}
+		default:
+			if pTokens[i] != sTokens[i] {
+				return nil, false
+			}
+		}
+	}
+	return result, true
 }
