@@ -1,10 +1,13 @@
 package dtos
 
-import "github.com/PJNube/lib-models/qparams"
+import (
+	"github.com/PJNube/lib-models/qparams"
+	"github.com/PJNube/lib-models/rparams"
+)
 
 type RequestHandler struct {
 	Pattern string
-	Handler func(params qparams.Params, body any) *APIResponse
+	Handler func(q qparams.Params, r rparams.Params, body any) *APIResponse
 }
 
 type HandleRequestInput[T any] struct {

@@ -75,18 +75,18 @@ func ParseBody[T any](body any) (*T, error) {
 	return entity, nil
 }
 
-func ResolveRouteParams(pattern, route string) (map[string][]string, bool) {
+func ResolveRouteParams(pattern, route string) (map[string]string, bool) {
 	pTokens := strings.Split(pattern, ".")
 	sTokens := strings.Split(route, ".")
 
 	if len(pTokens) != len(sTokens) {
 		return nil, false
 	}
-	result := make(map[string][]string)
+	result := make(map[string]string)
 	for i, pToken := range pTokens {
 		if strings.HasPrefix(pToken, ":") {
 			paramName := strings.TrimPrefix(pToken, ":")
-			result[paramName] = []string{sTokens[i]}
+			result[paramName] = sTokens[i]
 		} else if pToken != sTokens[i] {
 			return nil, false
 		}
