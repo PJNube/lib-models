@@ -7,7 +7,7 @@ import (
 
 type RequestHandler struct {
 	Pattern string
-	Handler func(q qparams.Params, r rparams.Params, body any) *APIResponse
+	Handler func(r rparams.Params) *APIResponse
 }
 
 type HandleRequestInput[T any] struct {
