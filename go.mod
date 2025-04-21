@@ -1,6 +1,6 @@
 module github.com/PJNube/lib-models
 
-go 1.23.1
+go 1.24.0
 
 require gorm.io/gorm v1.25.12
 
