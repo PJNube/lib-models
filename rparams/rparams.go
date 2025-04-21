@@ -1,21 +1,19 @@
-package qparams
+package rparams
 
-import (
-	"errors"
-)
+import "errors"
 
-type Params map[string][]string
+type Params map[string]string
 
 func (p Params) Get(key string) string {
 	vs := p[key]
 	if len(vs) == 0 {
 		return ""
 	}
-	return vs[0]
+	return vs
 }
 
 func (p Params) Set(key, value string) {
-	p[key] = []string{value}
+	p[key] = value
 }
 
 func (p Params) Del(key string) {
