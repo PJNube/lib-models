@@ -2,7 +2,6 @@ package qparams
 
 import (
 	"errors"
-	"fmt"
 	"net/url"
 	"reflect"
 	"strconv"
@@ -17,11 +16,9 @@ func (p Params) Get(key string) string {
 	}
 	if !isString(vs) {
 		return ""
-	} else if isString(vs) {
+	} else {
 		return vs.(string)
 	}
-
-	return ""
 }
 
 func (p Params) GetBool(key string) bool {
@@ -29,17 +26,15 @@ func (p Params) GetBool(key string) bool {
 	if !ok {
 		return false
 	}
-	isString := isString(vs)
-	if !isString {
+	if !isString(vs) {
 		return false
-	} else if isString {
+	} else {
 		boolVal, err := strconv.ParseBool(vs.(string))
 		if err != nil {
 			return false
 		}
 		return boolVal
 	}
-	return false
 }
 
 func (p Params) GetInt(key string) int {
@@ -47,17 +42,15 @@ func (p Params) GetInt(key string) int {
 	if !ok {
 		return 0
 	}
-	isString := isString(vs)
-	if !isString {
+	if !isString(vs) {
 		return 0
-	} else if isString {
+	} else {
 		intVal, err := strconv.Atoi(vs.(string))
 		if err != nil {
 			return 0
 		}
 		return intVal
 	}
-	return 0
 }
 
 func (p Params) Set(key string, value any) {
@@ -99,23 +92,4 @@ func GetParams(params url.Values) Params {
 		}
 	}
 	return result
-}
-
-func (p Params) RefreshParams() Params {
-	var resultMap Params = make(Params)
-	for k, v := range p {
-		vT := reflect.TypeOf(v).Kind()
-		if vT == reflect.Float32 || vT == reflect.Float64 || vT == reflect.Int || vT == reflect.Int32 || vT == reflect.Int64 || vT == reflect.Bool {
-			resultMap[k] = fmt.Sprintf("%v", v)
-		} else if vT == reflect.Slice || vT == reflect.Array {
-			var listVal []string
-			for _, val := range v.([]any) {
-				listVal = append(listVal, fmt.Sprintf("%v", val))
-			}
-			resultMap[k] = listVal
-		} else {
-			resultMap[k] = v
-		}
-	}
-	return resultMap
 }
