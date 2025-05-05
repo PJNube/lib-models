@@ -11,6 +11,6 @@ type RequestHandler struct {
 }
 
 type HandleRequestInput[T any] struct {
-	Params qparams.Params
-	Body   T
+	Params qparams.Params `json:"params,omitempty"`
+	Body   T              `json:"body,omitempty"`
 }

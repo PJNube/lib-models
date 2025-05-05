@@ -2,39 +2,59 @@ package qparams
 
 import (
 	"errors"
+	"net/url"
+	"reflect"
 	"strconv"
 )
 
-type Params map[string][]string
+type Params map[string]any
 
 func (p Params) Get(key string) string {
-	vs := p[key]
-	if len(vs) == 0 {
+	vs, ok := p[key]
+	if !ok {
 		return ""
 	}
-	return vs[0]
+	if !isString(vs) {
+		return ""
+	} else {
+		return vs.(string)
+	}
 }
 
 func (p Params) GetBool(key string) bool {
-	vs := p[key]
-	if len(vs) == 0 {
+	vs, ok := p[key]
+	if !ok {
 		return false
 	}
-	parseBool, _ := strconv.ParseBool(vs[0])
-	return parseBool
+	if !isString(vs) {
+		return false
+	} else {
+		boolVal, err := strconv.ParseBool(vs.(string))
+		if err != nil {
+			return false
+		}
+		return boolVal
+	}
 }
 
 func (p Params) GetInt(key string) int {
-	vs := p[key]
-	if len(vs) == 0 {
+	vs, ok := p[key]
+	if !ok {
 		return 0
 	}
-	intValue, _ := strconv.Atoi(vs[0])
-	return intValue
+	if !isString(vs) {
+		return 0
+	} else {
+		intVal, err := strconv.Atoi(vs.(string))
+		if err != nil {
+			return 0
+		}
+		return intVal
+	}
 }
 
-func (p Params) Set(key, value string) {
-	p[key] = []string{value}
+func (p Params) Set(key string, value any) {
+	p[key] = value
 }
 
 func (p Params) Del(key string) {
@@ -51,4 +71,25 @@ func (p Params) Validate(key string) error {
 		return errors.New(key + " is required")
 	}
 	return nil
+}
+
+func isString(value any) bool {
+	if reflect.TypeOf(value).Kind() == reflect.Slice {
+		return false
+	} else if reflect.TypeOf(value).Kind() == reflect.String {
+		return true
+	}
+	return false
+}
+
+func GetParams(params url.Values) Params {
+	result := make(Params)
+	for key, value := range params {
+		if len(value) == 1 {
+			result[key] = value[0]
+		} else {
+			result[key] = value
+		}
+	}
+	return result
 }
