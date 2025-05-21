@@ -95,11 +95,8 @@ func GetParams(params url.Values) Params {
 	return result
 }
 
-func Parse[T any](params []byte) (*T, error) {
-	result := new(T)
+func Parse[T any](params []byte) (T, error) {
+	var result T
 	err := json.Unmarshal(params, result)
-	if err != nil {
-		return nil, err
-	}
-	return result, nil
+	return result, err
 }
