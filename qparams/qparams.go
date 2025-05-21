@@ -1,6 +1,7 @@
 package qparams
 
 import (
+	"encoding/json"
 	"errors"
 	"net/url"
 	"reflect"
@@ -92,4 +93,13 @@ func GetParams(params url.Values) Params {
 		}
 	}
 	return result
+}
+
+func Parse[T any](params []byte) (*T, error) {
+	result := new(T)
+	err := json.Unmarshal(params, result)
+	if err != nil {
+		return nil, err
+	}
+	return result, nil
 }
