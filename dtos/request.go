@@ -9,7 +9,7 @@ type RequestHandler struct {
 	Handler func(r rparams.Params) *APIResponse
 }
 
-type HandleRequestInput[T any] struct {
-	Params []byte `json:"params,omitempty"`
-	Body   T      `json:"body,omitempty"`
+type HandleRequestInput[P, B any] struct {
+	Params P `json:"params,omitempty"`
+	Body   B `json:"body,omitempty"`
 }
