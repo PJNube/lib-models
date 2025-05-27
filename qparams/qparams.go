@@ -97,6 +97,6 @@ func GetParams(params url.Values) Params {
 
 func Parse[T any](params []byte) (T, error) {
 	var result T
-	err := json.Unmarshal(params, result)
+	err := json.Unmarshal(params, &result)
 	return result, err
 }
