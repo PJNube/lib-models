@@ -8,8 +8,8 @@ import (
 type ExtensionBatchType string
 
 const (
-	ExtensionBatchTypeInstall   ExtensionBatchType = "Install"
-	ExtensionBatchTypeUninstall ExtensionBatchType = "Uninstall"
+	ExtensionBatchTypeInstall   ExtensionBatchType = "install"
+	ExtensionBatchTypeUninstall ExtensionBatchType = "uninstall"
 )
 
 var ExtensionBatchTypeMap = map[ExtensionBatchType]struct{}{
