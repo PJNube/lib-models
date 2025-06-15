@@ -2,8 +2,9 @@ package api
 
 import (
 	"errors"
-	"github.com/PJNube/lib-models/dtos"
 	"strings"
+
+	"github.com/PJNube/lib-models/dtos"
 )
 
 func BuildGetAPIResponse(data any, err error) *dtos.APIResponse {
@@ -25,6 +26,19 @@ func BuildDeleteAPIResponse(err error) *dtos.APIResponse {
 		return GetServerError(err.Error())
 	}
 	return GetSuccess(204, nil)
+}
+
+func BuildPaginatedResponse(data any, total int64, page int, size int) *dtos.APIResponse {
+	return &dtos.APIResponse{
+		Status: "success",
+		Code:   200,
+		Data:   data,
+		Pagination: &dtos.Pagination{
+			Page:     page,
+			PageSize: size,
+			Total:    total,
+		},
+	}
 }
 
 func BuildNotFoundAPIResponse(message string) *dtos.APIResponse {

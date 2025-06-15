@@ -26,12 +26,19 @@ package dtos
 
 // APIResponse represents the structure of an API response
 type APIResponse struct {
-	Status  string     `json:"status"`            // success or error
-	Code    int        `json:"code"`              // HTTP status code
-	Message *string    `json:"message,omitempty"` // Descriptive message
-	Data    any        `json:"data,omitempty"`    // Response data (any type)
-	Errors  []APIError `json:"errors,omitempty"`  // List of errors, optional
-	Meta    any        `json:"meta,omitempty"`    // Metadata, optional
+	Status     string      `json:"status"`               // success or error
+	Code       int         `json:"code"`                 // HTTP status code
+	Message    *string     `json:"message,omitempty"`    // Descriptive message
+	Data       any         `json:"data,omitempty"`       // Response data (any type)
+	Errors     []APIError  `json:"errors,omitempty"`     // List of errors, optional
+	Meta       any         `json:"meta,omitempty"`       // Metadata, optional
+	Pagination *Pagination `json:"pagination,omitempty"` // Pagination details, optiona w
+}
+
+type Pagination struct {
+	Page     int   `json:"page"`
+	PageSize int   `json:"pageSize"`
+	Total    int64 `json:"total"`
 }
 
 // APIError represents an individual error in the response
