@@ -15,3 +15,14 @@ type ExtensionPermissions struct {
 	Resources []*Permission `json:"resources"`
 	Features  []string      `json:"features"`
 }
+
+type FeatureParam struct {
+	ExtensionId string    `json:"extensionId"`
+	Username    string    `json:"username"`
+	Features    []Feature `json:"features"`
+}
+
+type Feature struct {
+	Feature string   `json:"feature"`
+	Action  []string `json:"action"`
+}
