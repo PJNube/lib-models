@@ -1,28 +1,21 @@
 package dtos
 
 type Permission struct {
-	Resource string   `json:"resource"`
-	Action   []string `json:"action"`
-	Feature  string   `json:"feature"`
-	Source   string   `json:"source"`
+	Resource    string `json:"resource"`
+	Action      string `json:"action"`
+	ExtensionId string `json:"extensionId"`
 }
 
 type Permissions struct {
 	Resources []*Permission `json:"resources"`
 }
 
-type ExtensionPermissions struct {
-	Resources []*Permission `json:"resources"`
-	Features  []string      `json:"features"`
+type FeatureResource struct {
+	ID        string   `json:"id"`
+	Resources []string `json:"resources,omitempty"`
 }
 
-type FeatureParam struct {
-	ExtensionId string    `json:"extensionId"`
-	Username    string    `json:"username"`
-	Features    []Feature `json:"features"`
-}
-
-type Feature struct {
-	Feature string   `json:"feature"`
-	Action  []string `json:"action"`
+type ResourceParam struct {
+	Ids         []string `json:"ids"`
+	ExtensionId string   `json:"extensionId"`
 }
