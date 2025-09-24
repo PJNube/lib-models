@@ -6,7 +6,7 @@ import (
 	"github.com/PJNube/lib-models/dtos"
 )
 
-func ParseNotificationData(subject string, data []byte) (*dtos.NotificationPayload, error) {
+func ParseNotificationData(data []byte) (*dtos.NotificationPayload, error) {
 	var req dtos.APIResponse
 	if err := json.Unmarshal(data, &req); err != nil {
 		return nil, err
@@ -21,8 +21,6 @@ func ParseNotificationData(subject string, data []byte) (*dtos.NotificationPaylo
 	if err := json.Unmarshal(dataBytes, &payload); err != nil {
 		return nil, err
 	}
-
-	payload.Subject = subject
 
 	return &payload, nil
 }

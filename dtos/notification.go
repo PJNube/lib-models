@@ -1,11 +1,10 @@
 package dtos
 
-import "github.com/PJNube/lib-models/datatypes"
+import (
+	"github.com/PJNube/lib-models/enums/notification"
+)
 
 type NotificationPayload struct {
-	Event       datatypes.NotificationEvent `json:"event"`
-	Body        any                         `json:"body"`
-	Source      string                      `json:"source"`
-	Subject     string                      `json:"subject"`
-	ExtensionId string                      `json:"extensionId"`
+	Event notification.Event `json:"event,omitempty"`
+	Body  any                `json:"body,omitempty"`
 }
