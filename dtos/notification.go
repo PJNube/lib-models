@@ -6,5 +6,5 @@ import (
 
 type NotificationPayload struct {
 	Event notification.Event `json:"event,omitempty"`
-	Body  any                `json:"body,omitempty"`
+	Data  any                `json:"data,omitempty"`
 }
