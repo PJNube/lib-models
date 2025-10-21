@@ -12,10 +12,10 @@ type User struct {
 	Password    string               `json:"password"`
 	Status      datatypes.UserStatus `json:"status" gorm:"default:Disabled"`
 	IsSuperuser bool                 `json:"isSuperuser" gorm:"default:false"`
+	Layouts     []*UserLayout        `json:"layouts,omitempty" gorm:"foreignKey:UserUUID;constraint:OnDelete:CASCADE"`
 
 	// Extra fields
-	Roles       []string      `gorm:"-" json:"roles"`
-	UserLayouts []*UserLayout `json:"userLayouts,omitempty" gorm:"foreignKey:UserUUID;references:UUID"`
+	Roles []string `gorm:"-" json:"roles"`
 }
 
 func (r *User) BeforeCreate(tx *gorm.DB) (err error) {
