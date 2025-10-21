@@ -15,8 +15,7 @@ type User struct {
 	Layouts     []*UserLayout        `json:"layouts,omitempty" gorm:"foreignKey:UserUUID;constraint:OnDelete:CASCADE"`
 
 	// Extra fields
-	Roles       []string      `gorm:"-" json:"roles"`
-	UserLayouts []*UserLayout `json:"userLayouts,omitempty" gorm:"foreignKey:UserUUID;references:UUID"`
+	Roles []string `gorm:"-" json:"roles"`
 }
 
 func (r *User) BeforeCreate(tx *gorm.DB) (err error) {
