@@ -10,7 +10,7 @@ type User struct {
 	Username string               `json:"username"`
 	Password string               `json:"password"`
 	Status   datatypes.UserStatus `json:"status"`
-	Layouts  []*models.UserLayout `json:"userLayouts"`
+	Layouts  []*models.UserLayout `json:"layouts"`
 
 	Roles []*Role `json:"roles,omitempty"`
 }
