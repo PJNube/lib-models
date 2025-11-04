@@ -12,5 +12,5 @@ type User struct {
 	Status   datatypes.UserStatus `json:"status"`
 	Layouts  []*models.UserLayout `json:"layouts"`
 
-	Roles []*Role `json:"roles,omitempty"`
+	Roles []*RoleResponse `json:"roles,omitempty"`
 }
