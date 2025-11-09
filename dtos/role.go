@@ -1,15 +1,19 @@
 package dtos
 
-type Role struct {
+type Role struct { // role create and upsert
 	Name        string        `json:"name"`
 	ExtensionID string        `json:"extensionId,omitempty"`
-	ResourceIds []*ResourceID `json:"resourceIds,omitempty"`
+	Resources   []*ResourceID `json:"resourceIds,omitempty"`
 }
-type CasbinPolicy struct {
-	Role   string `json:"role"`
-	Source string `json:"source"` // combination of extensionID and resourceID
-	Topics string `json:"topics"`
-	Action string `json:"action"`
+
+type RoleResponse struct { // hierarchical role response : role -> extensions -> resources
+	Name       string       `json:"name"`
+	Extensions []*Extension `json:"extensions,omitempty"`
+}
+
+type Extension struct {
+	ID        string        `json:"id"`
+	Resources []*ResourceID `json:"resourceIds,omitempty"`
 }
 
 type ResourceID struct {
@@ -17,4 +21,9 @@ type ResourceID struct {
 	Action string `json:"action,omitempty"`
 }
 
-type RoleResponse map[string]map[string][]ResourceID
+type CasbinPolicy struct {
+	Role   string `json:"role"`
+	Source string `json:"source"` // combination of extensionID and resourceID
+	Topics string `json:"topics"`
+	Action string `json:"action"`
+}
