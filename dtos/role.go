@@ -1,9 +1,9 @@
 package dtos
 
 type Role struct { // role create and upsert
-	Name        string        `json:"name"`
-	ExtensionID string        `json:"extensionId,omitempty"`
-	Resources   []*ResourceID `json:"resourceIds,omitempty"`
+	Name        string      `json:"name"`
+	ExtensionID string      `json:"extensionId,omitempty"`
+	Resources   []*Resource `json:"resources,omitempty"`
 }
 
 type RoleResponse struct { // hierarchical role response : role -> extensions -> resources
@@ -12,11 +12,11 @@ type RoleResponse struct { // hierarchical role response : role -> extensions ->
 }
 
 type Extension struct {
-	ID        string        `json:"id"`
-	Resources []*ResourceID `json:"resourceIds,omitempty"`
+	ID        string      `json:"id"`
+	Resources []*Resource `json:"resources,omitempty"`
 }
 
-type ResourceID struct {
+type Resource struct {
 	ID     string `json:"id"`
 	Action string `json:"action,omitempty"`
 }
