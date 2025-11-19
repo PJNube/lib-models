@@ -1,10 +1,20 @@
 package dtos
 
-type Role struct {
-	Name  string `json:"name"`
-	Topic string `json:"topic"`
+type Role struct { // role create and upsert
+	Name      string      `json:"name"`
+	Action    string      `json:"action,omitempty"`
+	Resources []*Resource `json:"resources,omitempty"`
 }
 
-func (r *Role) ToStringArray() []string {
-	return []string{r.Name, r.Topic}
+type Resource struct {
+	ExtensionID string `json:"extensionId,omitempty"`
+	ID          string `json:"id"`
+	Action      string `json:"action,omitempty"`
+}
+
+type CasbinPolicy struct {
+	Name   string `json:"name"`
+	Source string `json:"source"`
+	Topics string `json:"topics"`
+	Action string `json:"action"`
 }
