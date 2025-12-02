@@ -3,30 +3,20 @@ package models
 import (
 	"time"
 
-	"github.com/PJNube/lib-models/utils/nuuid"
 	"github.com/PJNube/lib-models/utils/pjnjson"
 	"gorm.io/datatypes"
 	"gorm.io/gorm"
 )
 
 type AuditLog struct {
-	UUID               string         `json:"uuid" gorm:"primaryKey;type:VARCHAR(255)"`
-	UserUUID           string         `json:"userUuid,omitempty"`
-	Username           string         `json:"username,omitempty"`
-	AuditTime          time.Time      `json:"auditTime,omitempty" gorm:"not null;autoCreateTime"`
-	UserAgent          string         `json:"userAgent,omitempty"`
-	Action             string         `json:"action,omitempty"`
-	RequestUrl         string         `json:"requestUrl,omitempty"`
-	RequestQueryParams string         `json:"requestQueryParams,omitempty"`
-	RequestBody        datatypes.JSON `json:"requestBody,omitempty"`
-}
-
-func (f *AuditLog) BeforeCreate(tx *gorm.DB) (err error) {
-	if f.UUID == "" {
-		f.UUID = nuuid.ShortUUID("aud")
-	}
-	f.RequestBody = pjnjson.MarshalJson(f.RequestBody)
-	return
+	ID          uint64         `json:"id" gorm:"primaryKey;autoIncrement"`
+	Username    string         `json:"username,omitempty" gorm:"size:128"`
+	ClientIP    string         `json:"clientIp,omitempty" gorm:"size:45"`
+	UserAgent   string         `json:"userAgent,omitempty"`
+	Action      string         `json:"action,omitempty" gorm:"not null;size:64"`
+	RequestUrl  string         `json:"requestUrl,omitempty" gorm:"not null"`
+	RequestBody datatypes.JSON `json:"requestBody,omitempty" gorm:"type:json"`
+	CreatedAt   time.Time      `json:"auditTime,omitempty" gorm:"not null;autoCreateTime"`
 }
 
 func (f *AuditLog) BeforeUpdate(tx *gorm.DB) (err error) {
