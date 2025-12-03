@@ -19,7 +19,7 @@ type AuditLog struct {
 	CreatedAt   time.Time      `json:"auditTime,omitempty" gorm:"not null;autoCreateTime"`
 }
 
-func (f *AuditLog) BeforeUpdate(tx *gorm.DB) (err error) {
+func (f *AuditLog) BeforeCreate(tx *gorm.DB) (err error) {
 	f.RequestBody = pjnjson.MarshalJson(f.RequestBody)
 	return
 }
