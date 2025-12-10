@@ -12,7 +12,6 @@ type AuditLog struct {
 	ID          uint64         `json:"id" gorm:"primaryKey;autoIncrement"`
 	Username    string         `json:"username,omitempty" gorm:"size:128"`
 	ClientIP    string         `json:"clientIp,omitempty" gorm:"size:45"`
-	UserAgent   string         `json:"userAgent,omitempty"`
 	Action      string         `json:"action,omitempty" gorm:"not null;size:64"`
 	RequestUrl  string         `json:"requestUrl,omitempty" gorm:"not null"`
 	RequestBody datatypes.JSON `json:"requestBody,omitempty" gorm:"type:json"`
