@@ -8,6 +8,12 @@ const (
 	All        BackupComponent = "all"
 )
 
+var BackupComponentMap = map[string]struct{}{
+	string(ControlApp): {},
+	string(Data):       {},
+	string(All):        {},
+}
+
 type CreateStatus string
 
 const (
