@@ -7,8 +7,8 @@ import (
 )
 
 type CreateBackupRequest struct {
-	Name       string   `json:"name"`
-	Components []string `json:"components"`
+	Name       string                      `json:"name"`
+	Components []datatypes.BackupComponent `json:"components"`
 }
 
 func (c *CreateBackupRequest) ValidateComponents() (bool, error) {
@@ -19,6 +19,14 @@ func (c *CreateBackupRequest) ValidateComponents() (bool, error) {
 	}
 
 	return true, nil
+}
+
+func (c *CreateBackupRequest) ComponentsAsStringSlice() []string {
+	components := make([]string, 0, len(c.Components))
+	for _, component := range c.Components {
+		components = append(components, string(component))
+	}
+	return components
 }
 
 type DeleteBackupsRequest struct {
