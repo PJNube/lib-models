@@ -32,17 +32,3 @@ func (dt *BackupComponent) Validate() error {
 	}
 	return fmt.Errorf("please provide a valid backup component i.e.: %s", strings.Join(v, " or "))
 }
-
-type CreateStatus string
-
-const (
-	CreateStatusCompleted  CreateStatus = "completed"
-	CreateStatusInProgress CreateStatus = "in-progress"
-	CreateStatusFailed     CreateStatus = "failed"
-)
-
-var CreateStatusMap = map[CreateStatus]struct{}{
-	CreateStatusCompleted:  {},
-	CreateStatusInProgress: {},
-	CreateStatusFailed:     {},
-}
