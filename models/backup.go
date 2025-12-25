@@ -14,7 +14,7 @@ type Backup struct {
 	Name       string                          `json:"name" gorm:"not null"`
 	FileName   string                          `json:"fileName"`
 	Components gormDatatypes.JSONSlice[string] `json:"components,omitempty"`
-	Size       string                          `json:"size"`
+	Size       int64                           `json:"size"`
 	Status     datatypes.ProgressStatus        `json:"status"`
 	Message    string                          `json:"message,omitempty"`
 	CreatedAt  time.Time                       `json:"createdAt"`
