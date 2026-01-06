@@ -14,3 +14,8 @@ type User struct {
 
 	Roles []*Role `json:"roles,omitempty"`
 }
+
+type ChangePasswordReq struct {
+	OldPassword string `json:"oldPassword"`
+	NewPassword string `json:"newPassword"`
+}
