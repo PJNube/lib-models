@@ -16,6 +16,7 @@ type User struct {
 }
 
 type ChangePasswordReq struct {
-	OldPassword string `json:"oldPassword"`
-	NewPassword string `json:"newPassword"`
+	OldPassword    string `json:"oldPassword"`
+	NewPassword    string `json:"newPassword"`
+	PasswordExpiry int64  `json:"passwordExpiry"` // Unix timestamp in seconds
 }

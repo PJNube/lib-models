@@ -1,8 +1,6 @@
 package models
 
 import (
-	"time"
-
 	"github.com/PJNube/lib-models/datatypes"
 	"github.com/PJNube/lib-models/utils/nuuid"
 	"gorm.io/gorm"
@@ -12,7 +10,7 @@ type User struct {
 	UUID           string               `json:"uuid" sql:"uuid" gorm:"type:varchar(255);unique;primaryKey"`
 	Username       string               `json:"username" gorm:"unique;not null"`
 	Password       string               `json:"password"`
-	PasswordExpiry time.Time            `json:"passwordExpiry"`
+	PasswordExpiry int64                `json:"passwordExpiry"`
 	Status         datatypes.UserStatus `json:"status" gorm:"default:Disabled"`
 	IsSuperuser    bool                 `json:"isSuperuser" gorm:"default:false"`
 	Layouts        []*UserLayout        `json:"layouts,omitempty" gorm:"foreignKey:UserUUID;constraint:OnDelete:CASCADE"`
