@@ -6,17 +6,12 @@ import (
 )
 
 type User struct {
-	UUID     string               `json:"uuid"`
-	Username string               `json:"username"`
-	Password string               `json:"password"`
-	Status   datatypes.UserStatus `json:"status"`
-	Layouts  []*models.UserLayout `json:"layouts"`
+	UUID           string               `json:"uuid"`
+	Username       string               `json:"username"`
+	Password       string               `json:"password"`
+	PasswordExpiry int64                `json:"passwordExpiry"` // Unix timestamp in seconds
+	Status         datatypes.UserStatus `json:"status"`
+	Layouts        []*models.UserLayout `json:"layouts"`
 
 	Roles []*Role `json:"roles,omitempty"`
-}
-
-type ChangePasswordReq struct {
-	OldPassword    string `json:"oldPassword"`
-	NewPassword    string `json:"newPassword"`
-	PasswordExpiry int64  `json:"passwordExpiry"` // Unix timestamp in seconds
 }
