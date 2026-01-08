@@ -11,7 +11,7 @@ import (
 
 type Backup struct {
 	UUID       string                          `json:"uuid" sql:"uuid" gorm:"type:varchar(255);unique;primaryKey"`
-	Name       string                          `json:"name" gorm:"not null"`
+	Name       string                          `json:"name" gorm:"unique;not null"`
 	FileName   string                          `json:"fileName"`
 	Components gormDatatypes.JSONSlice[string] `json:"components,omitempty"`
 	Size       int64                           `json:"size"`
