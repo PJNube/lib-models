@@ -8,10 +8,8 @@ import (
 type User struct {
 	UUID           string               `json:"uuid"`
 	Username       string               `json:"username"`
-	Password       string               `json:"password"`
 	PasswordExpiry int64                `json:"passwordExpiry"` // Unix timestamp in seconds
 	Status         datatypes.UserStatus `json:"status"`
-	DisabledTTL    int64                `json:"disabledTTL,omitempty"`
 	Layouts        []*models.UserLayout `json:"layouts"`
 
 	Roles []*Role `json:"roles,omitempty"`
