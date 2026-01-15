@@ -11,7 +11,7 @@ type User struct {
 	Username           string               `json:"username" gorm:"unique;not null"`
 	Password           string               `json:"password"`
 	PasswordUpdatedAt  int64                `json:"passwordUpdatedAt"`
-	PasswordExpiryDays int                  `json:"passwordExpiryDays"`
+	PasswordExpiryDays *int                 `json:"passwordExpiryDays" gorm:"default:NULL"`
 	Status             datatypes.UserStatus `json:"status" gorm:"type:varchar(24);default:Disabled;check:status IN ('Enabled','Disabled')"`
 	IsSuperuser        bool                 `json:"isSuperuser" gorm:"default:false"`
 	Layouts            []*UserLayout        `json:"layouts,omitempty" gorm:"foreignKey:UserUUID;constraint:OnDelete:CASCADE"`
