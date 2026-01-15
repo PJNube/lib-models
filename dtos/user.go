@@ -2,7 +2,6 @@ package dtos
 
 import (
 	"github.com/PJNube/lib-models/datatypes"
-	"github.com/PJNube/lib-models/models"
 )
 
 type User struct {
@@ -11,7 +10,6 @@ type User struct {
 	PasswordExpiry     *int64               `json:"passwordExpiry"` // Unix timestamp in seconds
 	PasswordExpiryDays *int                 `json:"passwordExpiryDays"`
 	Status             datatypes.UserStatus `json:"status"`
-	Layouts            []*models.UserLayout `json:"layouts"`
 
 	Roles []*Role `json:"roles,omitempty"`
 }
