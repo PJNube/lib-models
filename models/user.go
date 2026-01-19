@@ -7,15 +7,18 @@ import (
 )
 
 type User struct {
-	UUID        string               `json:"uuid" sql:"uuid" gorm:"type:varchar(255);unique;primaryKey"`
-	Username    string               `json:"username" gorm:"unique;not null"`
-	Password    string               `json:"password"`
-	Status      datatypes.UserStatus `json:"status" gorm:"default:Disabled"`
-	IsSuperuser bool                 `json:"isSuperuser" gorm:"default:false"`
-	Layouts     []*UserLayout        `json:"layouts,omitempty" gorm:"foreignKey:UserUUID;constraint:OnDelete:CASCADE"`
+	UUID               string               `json:"uuid" sql:"uuid" gorm:"type:varchar(255);unique;primaryKey"`
+	Username           string               `json:"username" gorm:"unique;not null"`
+	Password           string               `json:"password"`
+	PasswordUpdatedAt  int64                `json:"passwordUpdatedAt"`
+	PasswordExpiryDays *int                 `json:"passwordExpiryDays" gorm:"default:NULL"`
+	Status             datatypes.UserStatus `json:"status" gorm:"type:varchar(24);default:Disabled;check:status IN ('Enabled','Disabled')"`
+	IsSuperuser        bool                 `json:"isSuperuser" gorm:"default:false"`
+	Layouts            []*UserLayout        `json:"layouts,omitempty" gorm:"foreignKey:UserUUID;constraint:OnDelete:CASCADE"`
 
 	// Extra fields
-	Roles []string `gorm:"-" json:"roles"`
+	Roles       []string `gorm:"-" json:"roles"`
+	OldPassword string   `gorm:"-" json:"oldPassword"`
 }
 
 func (r *User) BeforeCreate(tx *gorm.DB) (err error) {

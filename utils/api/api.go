@@ -41,6 +41,15 @@ func BuildPaginatedResponse(data any, total int64, page int, size int) *dtos.API
 	}
 }
 
+func BuildForbiddenAPIResponse(data any, message string) *dtos.APIResponse {
+	return &dtos.APIResponse{
+		Status:  "error",
+		Code:    403,
+		Message: &message,
+		Data:    data,
+	}
+}
+
 func BuildNotFoundAPIResponse(message string) *dtos.APIResponse {
 	return GetNotFoundError(message)
 }
