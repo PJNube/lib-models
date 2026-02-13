@@ -41,23 +41,13 @@ func BuildPaginatedResponse(data any, total int64, page int, size int) *dtos.API
 	}
 }
 
-func BuildForbiddenAPIResponse(data any, errCode, message string) *dtos.APIResponse {
-	return &dtos.APIResponse{
-		Status:  "error",
-		Code:    403,
-		Message: &message,
-		ErrCode: errCode,
-		Data:    data,
-	}
-}
-
-func BuildErrorAPIResponse(data any, code int, errCode, message string) *dtos.APIResponse {
+func BuildErrorAPIResponse(code int, errCode, message string) *dtos.APIResponse {
 	return &dtos.APIResponse{
 		Status:  "error",
 		Code:    code,
 		Message: &message,
 		ErrCode: errCode,
-		Data:    data,
+		Data:    nil,
 	}
 }
 
