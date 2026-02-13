@@ -41,7 +41,7 @@ func BuildPaginatedResponse(data any, total int64, page int, size int) *dtos.API
 	}
 }
 
-func BuildErrorAPIResponse(code int, errCode, message string) *dtos.APIResponse {
+func BuildErrorResponse(code int, errCode, message string) *dtos.APIResponse {
 	return &dtos.APIResponse{
 		Status:  "error",
 		Code:    code,
