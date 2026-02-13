@@ -28,7 +28,7 @@ package dtos
 type APIResponse struct {
 	Status     string      `json:"status"`               // success or error
 	Code       int         `json:"code"`                 // HTTP status code
-	ErrCode    string      `json:"errCode"`              // error code
+	ErrCode    string      `json:"errCode,omitempty"`    // error code
 	Message    *string     `json:"message,omitempty"`    // Descriptive message
 	Data       any         `json:"data,omitempty"`       // Response data (any type)
 	Errors     []APIError  `json:"errors,omitempty"`     // List of errors, optional
