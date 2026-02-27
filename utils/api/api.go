@@ -51,6 +51,16 @@ func BuildErrorResponse(code int, errCode, message string) *dtos.APIResponse {
 	}
 }
 
+func BuildErrorResponseWithData(code int, errCode, message string, data any) *dtos.APIResponse {
+	return &dtos.APIResponse{
+		Status:  "error",
+		Code:    code,
+		Message: &message,
+		ErrCode: errCode,
+		Data:    data,
+	}
+}
+
 func BuildNotFoundAPIResponse(message string) *dtos.APIResponse {
 	return GetNotFoundError(message)
 }
