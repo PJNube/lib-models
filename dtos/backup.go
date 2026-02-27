@@ -1,8 +1,9 @@
 package dtos
 
 type CreateBackupRequest struct {
-	Name       string   `json:"name"`
-	Components []string `json:"components"`
+	Name                 string   `json:"name"`
+	Components           []string `json:"components"`
+	IncludeSystemUpgrade bool     `json:"includeSystemUpgrade"`
 }
 
 type DeleteBackupsRequest struct {
