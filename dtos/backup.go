@@ -1,9 +1,11 @@
 package dtos
 
+import "github.com/PJNube/lib-models/models"
+
 type CreateBackupRequest struct {
-	Name                 string   `json:"name"`
-	Components           []string `json:"components"`
-	IncludeSystemUpgrade bool     `json:"includeSystemUpgrade"`
+	Name                 string                            `json:"name"`
+	BackupExtensions     map[string]models.BackupExtension `json:"backupExtensions"`
+	IncludeSystemUpgrade bool                              `json:"includeSystemUpgrade"`
 }
 
 type DeleteBackupsRequest struct {
@@ -11,7 +13,7 @@ type DeleteBackupsRequest struct {
 }
 
 type ExtensionVersionLock struct {
+	EnvelopeId  string `json:"envelopeId"`
 	Version     string `json:"version"`
 	VersionPath string `json:"version_path"`
-	DataPath    string `json:"data_path"`
 }
