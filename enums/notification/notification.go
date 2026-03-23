@@ -11,3 +11,10 @@ const (
 	Uninstall    Event = "uninstall"
 	Upgrade      Event = "upgrade"
 )
+
+type Type string
+
+const (
+	NotificationType Type = "notification"
+	EventType        Type = "event"
+)
