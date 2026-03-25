@@ -3,22 +3,25 @@ package models
 import (
 	"time"
 
-	"github.com/PJNube/lib-models/utils/nuuid"
+	"github.com/PJNube/lib-models/utils/pjnjson"
 	"gorm.io/datatypes"
 	"gorm.io/gorm"
 )
 
 type EventLog struct {
-	UUID        string                      `json:"uuid" gorm:"type:text;primaryKey;not null"`
+	ID          uint64                      `json:"id" gorm:"primaryKey;autoIncrement"`
 	ExtensionID string                      `json:"extensionId" gorm:"index;not null"`
-	Timestamp   time.Time                   `json:"timestamp" gorm:"index;not null;autoCreateTime"`
 	Tags        datatypes.JSONSlice[string] `json:"tags" gorm:"type:text"`
 	Payload     datatypes.JSON              `json:"payload" gorm:"type:text"`
+	CreatedAt   time.Time                   `json:"createdAt,omitempty" gorm:"not null;autoCreateTime"`
 }
 
-func (e *EventLog) BeforeCreate(tx *gorm.DB) (err error) {
-	if e.UUID == "" {
-		e.UUID = nuuid.ShortUUID("evt")
-	}
+func (f *EventLog) BeforeCreate(tx *gorm.DB) (err error) {
+	f.Payload = pjnjson.MarshalJson(f.Payload)
+	return
+}
+
+func (f *EventLog) BeforeUpdate(tx *gorm.DB) (err error) {
+	f.Payload = pjnjson.MarshalJson(f.Payload)
 	return
 }
