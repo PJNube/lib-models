@@ -1,6 +1,7 @@
 package libconstants
 
 const (
-	EventKeyword = "$event"
-	SysKeyword   = "$sys"
+	EventKeyword        = "$event"
+	NotificationKeyword = "$notification"
+	SysKeyword          = "$sys"
 )
