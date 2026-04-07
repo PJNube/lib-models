@@ -15,6 +15,7 @@ type User struct {
 	Status             datatypes.UserStatus `json:"status" gorm:"type:varchar(24);default:Disabled;check:status IN ('Enabled','Disabled')"`
 	IsSuperuser        bool                 `json:"isSuperuser" gorm:"default:false"`
 	Layouts            []*UserLayout        `json:"layouts,omitempty" gorm:"foreignKey:UserUUID;constraint:OnDelete:CASCADE"`
+	Preference         *UserPreference      `json:"preference,omitempty" gorm:"foreignKey:UserUUID;constraint:OnDelete:CASCADE"`
 
 	// Extra fields
 	Roles       []string `gorm:"-" json:"roles"`
