@@ -8,12 +8,12 @@ import (
 )
 
 type UserPreference struct {
-	UUID      string         `gorm:"primaryKey;type:VARCHAR(255)" json:"uuid"`
-	UserUUID  *string        `gorm:"uniqueIndex:idx_user_preferences_user_uuid" json:"userUuid,omitempty"`
+	UUID      string         `json:"uuid" gorm:"primaryKey;type:VARCHAR(255)" `
+	UserUUID  *string        `json:"userUuid,omitempty" gorm:"uniqueIndex" `
 	Data      datatypes.JSON `json:"data"`
-	IsDefault bool           `json:"isDefault"`
+	IsDefault bool           `json:"isDefault" gorm:"default:false"`
 
-	User *User `gorm:"foreignKey:UserUUID" json:"user,omitempty"`
+	User *User `json:"user,omitempty" gorm:"foreignKey:UserUUID"`
 }
 
 func (f *UserPreference) BeforeCreate(tx *gorm.DB) (err error) {
