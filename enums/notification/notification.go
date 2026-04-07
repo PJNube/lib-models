@@ -1,15 +1,17 @@
 package notification
 
-type Event string
+type NotificationEvent string
 
 const (
-	StateChange  Event = "state-change"
-	Restart      Event = "restart"
-	Backup       Event = "backup"
-	ConfigChange Event = "config-change"
-	Install      Event = "install"
-	Uninstall    Event = "uninstall"
-	Upgrade      Event = "upgrade"
+	StateChange  NotificationEvent = "state-change"
+	Restart      NotificationEvent = "restart"
+	Start        NotificationEvent = "start"
+	Stop         NotificationEvent = "stop"
+	Backup       NotificationEvent = "backup"
+	ConfigChange NotificationEvent = "config-change"
+	Install      NotificationEvent = "install"
+	Uninstall    NotificationEvent = "uninstall"
+	Upgrade      NotificationEvent = "upgrade"
 )
 
 type Type string
