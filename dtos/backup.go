@@ -11,7 +11,6 @@ type DeleteBackupsRequest struct {
 }
 
 type ExtensionVersionLock struct {
-	Version     string `json:"version"`
-	VersionPath string `json:"version_path"`
-	DataPath    string `json:"data_path"`
+	Id      string `json:"id"`
+	Version string `json:"version"`
 }
