@@ -5,21 +5,21 @@ import (
 	"strings"
 )
 
-type BackupComponent string
+type BackupTier string
 
 const (
-	BackupComponentControlApp BackupComponent = "control-app"
-	BackupComponentData       BackupComponent = "data"
-	BackupComponentAll        BackupComponent = "all"
+	BackupComponentControlApp BackupTier = "control-app"
+	BackupComponentData       BackupTier = "data"
+	BackupComponentAll        BackupTier = "all"
 )
 
-var BackupComponentMap = map[BackupComponent]struct{}{
+var BackupComponentMap = map[BackupTier]struct{}{
 	BackupComponentControlApp: {},
 	BackupComponentData:       {},
 	BackupComponentAll:        {},
 }
 
-func (dt *BackupComponent) Validate() error {
+func (dt *BackupTier) Validate() error {
 	if dt == nil || *dt == "" {
 		return nil
 	}

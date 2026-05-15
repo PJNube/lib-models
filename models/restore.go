@@ -12,6 +12,7 @@ type Restore struct {
 	UUID       string                   `json:"uuid" sql:"uuid" gorm:"type:varchar(255);unique;primaryKey"`
 	BackupUUID string                   `json:"backupUuid" gorm:"type:varchar(255)"`
 	Status     datatypes.ProgressStatus `json:"status"`
+	Progress   int                      `json:"progress"`
 	Message    string                   `json:"message,omitempty"`
 	CreatedAt  time.Time                `json:"createdAt"`
 }
