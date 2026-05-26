@@ -8,8 +8,8 @@ import (
 
 type UserVisit struct {
 	ID        uint      `json:"id" gorm:"primaryKey;autoIncrement"`
-	UserUUID  string    `json:"userUuid" gorm:"index;not null;uniqueIndex:idx_user_uri"`
-	URI       string    `json:"uri" gorm:"type:TEXT;not null;uniqueIndex:idx_user_uri"`
+	UserUUID  string    `json:"userUuid" gorm:"index;not null;uniqueIndex:idx_user_uuid_data"`
+	Data      string    `json:"data" gorm:"type:TEXT;not null;uniqueIndex:idx_user_uuid_data"`
 	VisitedAt time.Time `json:"visitedAt"`
 	CreatedAt time.Time `json:"createdAt"`
 }
