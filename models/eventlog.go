@@ -11,6 +11,7 @@ import (
 type EventLog struct {
 	ID          uint64                      `json:"id" gorm:"primaryKey;autoIncrement"`
 	ExtensionID string                      `json:"extensionId" gorm:"index;not null"`
+	Event       string                      `json:"event" gorm:"index"`
 	Tags        datatypes.JSONSlice[string] `json:"tags" gorm:"type:text"`
 	Payload     datatypes.JSON              `json:"payload" gorm:"type:text"`
 	CreatedAt   time.Time                   `json:"createdAt,omitempty" gorm:"not null;autoCreateTime"`
