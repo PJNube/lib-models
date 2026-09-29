@@ -18,7 +18,7 @@ import (
 type Connection struct {
 	UUID        string                    `json:"uuid" gorm:"type:varchar(255);unique;primaryKey"`
 	Name        string                    `json:"name" gorm:"type:varchar(255);unique;not null"`
-	Scope       datatypes.ConnectionScope `json:"scope" gorm:"type:varchar(16);not null;unique"`
+	Scope       datatypes.ConnectionScope `json:"scope" gorm:"type:varchar(16);not null;uniqueIndex:idx_connections_local_scope,where:scope = 'local'"` // one local row; cloud rows unlimited by schema
 	Kind        datatypes.ConnectionKind  `json:"kind" gorm:"type:varchar(16);not null"`
 	Config      string                    `json:"-" gorm:"type:text;not null"` // kind-specific JSON, non-secret; exposed parsed by the API
 	Credentials string                    `json:"-" gorm:"type:text"`          // kind-specific JSON, secret

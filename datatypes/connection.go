@@ -6,9 +6,9 @@ import (
 )
 
 // ConnectionScope says what a broker connection is for. The device has
-// exactly one Local connection (its own bus, owned by the device) and, for
-// now, at most one Cloud connection (the uplink an enrolled platform's
-// requests arrive on).
+// exactly one Local connection (its own bus, owned by the device) and Cloud
+// connections (uplinks an enrolled platform's requests arrive on). The
+// schema allows many Cloud rows; ros-server currently creates at most one.
 type ConnectionScope string
 
 const (

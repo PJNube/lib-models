@@ -16,7 +16,7 @@ type CloudIntegration struct {
 	Name           string    `json:"name" gorm:"type:varchar(255);unique;not null"` // issuer (iss) of its signed requests
 	JWKS           string    `json:"jwks" gorm:"type:text;not null"`                // Trust Anchor: JWKS document as JSON
 	UserUUID       string    `json:"userUuid" gorm:"type:varchar(255);not null"`    // Representative Account
-	ConnectionUUID string    `json:"connectionUuid" gorm:"type:varchar(255);not null;default:cloud"`
+	ConnectionUUID string    `json:"connectionUuid" gorm:"type:varchar(255);not null"`
 	Enabled        bool      `json:"enabled" gorm:"default:true"`
 	CreatedAt      time.Time `json:"createdAt"`
 }
