@@ -8,6 +8,7 @@ import (
 type BackupTier string
 
 const (
+	BackupTierControlData    BackupTier = "control-data"
 	BackupTierControlApp     BackupTier = "control-app"
 	BackupTierExtensionsData BackupTier = "extensions-data"
 	BackupTierAll            BackupTier = "all"
@@ -18,6 +19,7 @@ const (
 )
 
 var BackupTierMap = map[BackupTier]struct{}{
+	BackupTierControlData:    {},
 	BackupTierControlApp:     {},
 	BackupTierExtensionsData: {},
 	BackupTierAll:            {},
