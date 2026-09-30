@@ -14,6 +14,7 @@ type User struct {
 	PasswordExpiryDays *int                 `json:"passwordExpiryDays" gorm:"default:NULL"`
 	Status             datatypes.UserStatus `json:"status" gorm:"type:varchar(24);default:Disabled;check:status IN ('Enabled','Disabled')"`
 	IsSuperuser        bool                 `json:"isSuperuser" gorm:"default:false"`
+	Type               datatypes.UserType   `json:"type" gorm:"type:varchar(32);default:Interactive;check:type IN ('Interactive','CloudRepresentative')"`
 	Layouts            []*UserLayout        `json:"layouts,omitempty" gorm:"foreignKey:UserUUID;constraint:OnDelete:CASCADE"`
 	Preference         *UserPreference      `json:"preference,omitempty" gorm:"foreignKey:UserUUID;constraint:OnDelete:CASCADE"`
 
