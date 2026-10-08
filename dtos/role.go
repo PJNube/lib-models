@@ -1,5 +1,10 @@
 package dtos
 
+import (
+	"bytes"
+	"encoding/json"
+)
+
 type Role struct { // role create and upsert
 	Name         string      `json:"name"`
 	Action       string      `json:"action,omitempty"`
@@ -19,6 +24,20 @@ type CEGrants struct {
 type CEGrantLevels struct {
 	Admin    []string `json:"admin"`
 	Operator []string `json:"operator"`
+}
+
+// UnmarshalJSON refuses unknown keys at any depth: a misspelt verb or level
+// would otherwise be dropped silently and save a narrower grant than was sent.
+func (g *CEGrants) UnmarshalJSON(data []byte) error {
+	type plain CEGrants
+	dec := json.NewDecoder(bytes.NewReader(data))
+	dec.DisallowUnknownFields()
+	var p plain
+	if err := dec.Decode(&p); err != nil {
+		return err
+	}
+	*g = CEGrants(p)
+	return nil
 }
 
 type Resource struct {
