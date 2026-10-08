@@ -26,6 +26,16 @@ type CEGrantLevels struct {
 	Operator []string `json:"operator"`
 }
 
+// Lists returns the six category lists, one per verb and level, so callers
+// can read or replace each one without naming them all.
+func (g *CEGrants) Lists() []*[]string {
+	return []*[]string{
+		&g.Read.Admin, &g.Read.Operator,
+		&g.Write.Admin, &g.Write.Operator,
+		&g.Invoke.Admin, &g.Invoke.Operator,
+	}
+}
+
 // UnmarshalJSON refuses unknown keys at any depth: a misspelt verb or level
 // would otherwise be dropped silently and save a narrower grant than was sent.
 func (g *CEGrants) UnmarshalJSON(data []byte) error {
