@@ -14,7 +14,7 @@ type AuditLog struct {
 	Url          string         `json:"url,omitempty" gorm:"type:text;not null;index:idx_audit_logs_url_created_at"`
 	Body         datatypes.JSON `json:"body,omitempty" gorm:"type:jsonb"`
 	PreviousBody datatypes.JSON `json:"previousBody,omitempty" gorm:"type:jsonb"`
-	CreatedAt    time.Time      `json:"auditTime,omitempty" gorm:"not null;autoCreateTime;index:idx_audit_logs_url_created_at"`
+	CreatedAt    time.Time      `json:"auditTime,omitempty" gorm:"not null;autoCreateTime;index:idx_audit_logs_url_created_at;uniqueIndex:idx_audit_logs_created_at_ce_change_id,priority:1"`
 
 	// Cloud integration fields. Empty on local (web) entries; Source
 	// distinguishes them. The actor fields are what the cloud *claimed* —
@@ -26,4 +26,8 @@ type AuditLog struct {
 	AssertedRole       string `json:"assertedRole,omitempty" gorm:"size:128"`
 	ActorAsserted      bool   `json:"actorAsserted,omitempty" gorm:"default:false"`
 	Outcome            string `json:"outcome,omitempty" gorm:"size:32"`
+
+	// The Control Engine's change id on entries copied from its audit log
+	// (Source "ce"); nil on every other entry.
+	CEChangeID *uint64 `json:"ceChangeId,omitempty" gorm:"column:ce_change_id;uniqueIndex:idx_audit_logs_created_at_ce_change_id,priority:2"`
 }
