@@ -8,10 +8,11 @@ import (
 )
 
 type UserLayout struct {
-	UUID     string         `gorm:"primaryKey;type:VARCHAR(255)" json:"uuid"`
-	Name     string         `gorm:"not null;uniqueIndex:idx_user_layouts_name_user_uuid" json:"name"`
-	UserUUID string         `gorm:"not null;uniqueIndex:idx_user_layouts_name_user_uuid" json:"userUuid,omitempty"`
-	Data     datatypes.JSON `json:"data,omitempty"`
+	UUID      string         `gorm:"primaryKey;type:VARCHAR(255)" json:"uuid"`
+	Name      string         `gorm:"not null;uniqueIndex:idx_user_layouts_name_user_uuid" json:"name"`
+	UserUUID  string         `gorm:"not null;uniqueIndex:idx_user_layouts_name_user_uuid" json:"userUuid,omitempty"`
+	Data      datatypes.JSON `json:"data,omitempty"`
+	IsDefault bool           `gorm:"default:false" json:"isDefault"`
 
 	User *User `gorm:"foreignKey:UserUUID" json:"user,omitempty"`
 }
