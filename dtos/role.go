@@ -14,15 +14,15 @@ type Role struct { // role create and upsert
 	Resources    []*Resource `json:"resources,omitempty"`
 	CE           CEGrants    `json:"ce"`
 
-	// Categories lists a role's CE grants one category per row, for the Roles
-	// grid. On a read, CategoriesUnavailable says CE didn't answer, so only the
-	// categories the role already grants are listed.
-	Categories            []CategoryGrant `json:"categories,omitzero"`
-	CategoriesUnavailable bool            `json:"categoriesUnavailable,omitempty"`
+	// SecurityScopes lists a role's CE grants one security scope per row, for
+	// the Roles grid. On a read, SecurityScopesUnavailable says CE didn't answer,
+	// so only the security scopes the role already grants are listed.
+	SecurityScopes            []SecurityScopeGrant `json:"securityScopes,omitzero"`
+	SecurityScopesUnavailable bool                 `json:"securityScopesUnavailable,omitempty"`
 }
 
-// CEGrants lists, per verb and level, the Control Engine categories a role
-// reaches. Category names only: CE assigns the bits per engine.
+// CEGrants lists, per verb and level, the Control Engine security scopes a
+// role reaches. Security scope names only: CE assigns the bits per engine.
 type CEGrants struct {
 	Read   CEGrantLevels `json:"read"`
 	Write  CEGrantLevels `json:"write"`
@@ -34,7 +34,7 @@ type CEGrantLevels struct {
 	Operator []string `json:"operator"`
 }
 
-// Lists returns the six category lists, one per verb and level, so callers
+// Lists returns the six security scope lists, one per verb and level, so callers
 // can read or replace each one without naming them all.
 func (g *CEGrants) Lists() []*[]string {
 	return []*[]string{
@@ -64,9 +64,10 @@ const (
 	CELevelAdmin    = "admin"
 )
 
-// CategoryGrant is the level a role holds on one category for each verb. An
-// admin grant also covers operator-level parts, so one level per verb is enough.
-type CategoryGrant struct {
+// SecurityScopeGrant is the level a role holds on one security scope for each
+// verb. An admin grant also covers operator-level parts, so one level per verb
+// is enough.
+type SecurityScopeGrant struct {
 	Name   string `json:"name"`
 	Read   string `json:"read"`
 	Write  string `json:"write"`
@@ -75,15 +76,15 @@ type CategoryGrant struct {
 
 // UnmarshalJSON refuses unknown keys and any verb whose level is missing or
 // unknown: saving those as "none" would silently remove access.
-func (c *CategoryGrant) UnmarshalJSON(data []byte) error {
-	type plain CategoryGrant
+func (c *SecurityScopeGrant) UnmarshalJSON(data []byte) error {
+	type plain SecurityScopeGrant
 	dec := json.NewDecoder(bytes.NewReader(data))
 	dec.DisallowUnknownFields()
 	var p plain
 	if err := dec.Decode(&p); err != nil {
 		return err
 	}
-	grant := CategoryGrant(p)
+	grant := SecurityScopeGrant(p)
 	if err := grant.validateLevels(); err != nil {
 		return err
 	}
@@ -91,20 +92,20 @@ func (c *CategoryGrant) UnmarshalJSON(data []byte) error {
 	return nil
 }
 
-func (c CategoryGrant) validateLevels() error {
+func (c SecurityScopeGrant) validateLevels() error {
 	for _, level := range []string{c.Read, c.Write, c.Invoke} {
 		switch level {
 		case CELevelNone, CELevelOperator, CELevelAdmin:
 		default:
-			return fmt.Errorf("category %q: level must be none, operator or admin, got %q", c.Name, level)
+			return fmt.Errorf("security scope %q: level must be none, operator or admin, got %q", c.Name, level)
 		}
 	}
 	return nil
 }
 
-// Category returns the levels held on one category, as a CategoryGrant.
-func (g CEGrants) Category(name string) CategoryGrant {
-	return CategoryGrant{
+// SecurityScope returns the levels held on one security scope.
+func (g CEGrants) SecurityScope(name string) SecurityScopeGrant {
+	return SecurityScopeGrant{
 		Name:   name,
 		Read:   g.Read.levelOf(name),
 		Write:  g.Write.levelOf(name),
@@ -112,8 +113,9 @@ func (g CEGrants) Category(name string) CategoryGrant {
 	}
 }
 
-// SetCategory replaces the levels held on one category and keeps the others.
-func (g *CEGrants) SetCategory(c CategoryGrant) error {
+// SetSecurityScope replaces the levels held on one security scope and keeps
+// the others.
+func (g *CEGrants) SetSecurityScope(c SecurityScopeGrant) error {
 	if err := c.validateLevels(); err != nil {
 		return err
 	}
