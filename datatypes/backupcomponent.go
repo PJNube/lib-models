@@ -11,10 +11,12 @@ const (
 	BackupTierControlApp     BackupTier = "control-app"
 	BackupTierExtensionsData BackupTier = "extensions-data"
 	BackupTierAll            BackupTier = "all"
-	// BackupTierFirmware is a restore-only tier. Firmware zips are created
-	// manually (with {"tier":"firmware"} in the zip comment); the system never
-	// produces them, so it is intentionally excluded from BackupTierMap/Validate.
+	// Firmware and bundle are restore-only tiers, excluded from BackupTierMap/Validate.
+	// Their zips are built by hand ({"tier":"firmware"} or {"tier":"bundle"} in the
+	// zip comment); the system never produces them. A bundle carries extension
+	// packages and optionally firmware.
 	BackupTierFirmware BackupTier = "firmware"
+	BackupTierBundle   BackupTier = "bundle"
 )
 
 var BackupTierMap = map[BackupTier]struct{}{
