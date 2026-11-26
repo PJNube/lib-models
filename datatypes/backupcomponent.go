@@ -11,6 +11,8 @@ const (
 	BackupTierControlApp     BackupTier = "control-app"
 	BackupTierExtensionsData BackupTier = "extensions-data"
 	BackupTierAll            BackupTier = "all"
+	// BackupTierCustom holds a user-chosen set of components, listed in Backup.Components.
+	BackupTierCustom BackupTier = "custom"
 	// Firmware and bundle are restore-only tiers, excluded from BackupTierMap/Validate.
 	// Their zips are built by hand ({"tier":"firmware"} or {"tier":"bundle"} in the
 	// zip comment); the system never produces them. A bundle carries extension
@@ -23,7 +25,19 @@ var BackupTierMap = map[BackupTier]struct{}{
 	BackupTierControlApp:     {},
 	BackupTierExtensionsData: {},
 	BackupTierAll:            {},
+	BackupTierCustom:         {},
 }
+
+// BackupComponent is one part of the device's data a backup can hold. Each tier
+// is a fixed set of components; a custom backup picks its own.
+type BackupComponent string
+
+const (
+	BackupComponentControlData   BackupComponent = "control-data"
+	BackupComponentDashboard     BackupComponent = "dashboard"
+	BackupComponentExtensionData BackupComponent = "extension-data"
+	BackupComponentExtensions    BackupComponent = "extensions"
+)
 
 func (dt *BackupTier) Validate() error {
 	if dt == nil || *dt == "" {

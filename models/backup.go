@@ -18,6 +18,8 @@ type Backup struct {
 	Message   string                   `json:"message,omitempty"`
 	CreatedAt time.Time                `json:"createdAt"`
 	Tier      string                   `json:"tier,omitempty"`
+	// Components is set only on a custom-tier backup.
+	Components []string `json:"components,omitempty" gorm:"serializer:json"`
 }
 
 func (b *Backup) BeforeCreate(tx *gorm.DB) (err error) {
