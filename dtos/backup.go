@@ -3,6 +3,8 @@ package dtos
 type CreateBackupRequest struct {
 	Name string `json:"name"`
 	Tier string `json:"tier"`
+	// Components is required for the custom tier and refused for every other.
+	Components []string `json:"components,omitempty"`
 }
 
 type DeleteBackupsRequest struct {
